@@ -1,0 +1,32 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution 
+{
+    public static void sort012(int[] arr)
+    {
+       int zero = 0, one = 0, two = arr.length - 1;
+        
+        while(one <= two)
+        {
+            switch(arr[one])
+            {
+                case 0:
+                  int temp = arr[one];
+                  arr[one] = arr[zero];
+                  arr[zero] = temp;
+                  zero++;one++;
+                break;
+                case 1:
+                    one++;
+                 break;
+                case 2:
+                  int temp1 = arr[one];
+                  arr[one] = arr[two];
+                  arr[two] = temp1;
+                  two--;
+                  break;
+                 
+            }
+        }
+    }
+}
