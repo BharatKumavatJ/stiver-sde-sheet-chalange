@@ -1,0 +1,29 @@
+import java.util.* ;
+import java.io.*; 
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Solution 
+{
+	public static ArrayList<Integer> nextPermutation(ArrayList<Integer> permutation) 
+	{
+        ArrayList<Integer> al = permutation;
+		for(int i = al.size() - 2; i >= 0; i--)
+        {
+            if(al.get(i) < al.get(i + 1))
+            {
+                int x = al.get(i);
+                int j = al.size() - 1;
+                while(j >= 0 && al.get(j) < x) j--;
+                int temp = al.get(j);
+                al.set(i, temp);
+                al.set(j, x);
+                Collections.sort(al.subList(i + 1, al.size()));
+                return al;
+            }
+        }
+        
+        Collections.sort(al);
+        return al;
+	}
+}
