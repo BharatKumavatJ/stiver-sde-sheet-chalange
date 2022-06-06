@@ -1,0 +1,35 @@
+import java.util.ArrayList;
+
+public class Solution {
+
+    public static int[] missingAndRepeating(ArrayList<Integer> arr, int n) {
+        // Write your code here
+        
+        for(int i = 0; i < n; i++)
+        {
+            int x = arr.get(i) % n;
+            
+            arr.set(x % n, arr.get(x % n) + n);
+        }
+        
+            
+        
+        int missing = -1, repeated = -1;
+        for(int i = 0; i < n; i++)
+        {
+            //System.out.print(arr.get(i) + " ");
+            if(arr.get(i) <= n){
+          
+                missing = (i == 0) ? n : i;
+            }
+            if(arr.get(i) > 2 * n)
+                repeated = (i == 0) ? n : i; 
+        }
+        
+        
+        int ans[] = new int[2];
+        ans[0] = missing;
+        ans[1] = repeated;
+        return ans;
+    }
+}
