@@ -1,0 +1,24 @@
+import java.util.* ;
+import java.io.*; 
+import java.util.ArrayList;
+
+public class Solution{
+    public static int findDuplicate(ArrayList<Integer> arr, int n){
+        // Write your code here.
+        
+        for(int i = 0; i < n; i++)
+        {
+            int x = arr.get(i) % n;
+            arr.set(x, arr.get(x) + n);
+        }
+        
+        for(int i = 0; i < n; i++)
+        {
+            if(arr.get(i) >= n * 2)
+                return i;
+        }
+        return -1;
+        
+        
+    }
+}
