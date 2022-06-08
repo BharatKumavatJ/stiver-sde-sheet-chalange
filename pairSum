@@ -1,0 +1,43 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution{
+    public static int[][] pairSum(int[] arr, int sum) {
+        // Write your code here.
+        
+        ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
+        
+        int n = arr.length;
+        HashMap<Integer, Integer> numMap = new HashMap<>();
+        for(int i = 0; i < n; i++)
+        {
+            if(numMap.containsKey(sum - arr[i]))
+            {
+                int x = arr[i];
+                int y = sum - arr[i];
+                
+                ArrayList<Integer> al = new ArrayList<>();
+                al.add(Math.min(x,y));
+                al.add(Math.max(x,y));
+                int feq= numMap.get(sum - arr[i]);
+                while(feq-- > 0)
+                ans.add(al);
+            }
+            
+            numMap.put(arr[i], numMap.getOrDefault(arr[i], 0) + 1);
+
+        }    
+        
+        int mat[][] = new int[ans.size()][2];
+        for(int i = 0; i < ans.size(); i++)
+        {
+            mat[i][0] = ans.get(i).get(0);
+            mat[i][1] = ans.get(i).get(1);
+        }
+        
+        Arrays.sort(mat, (a,b) -> (a[0] - b[0]));
+
+        return mat;
+       
+    
+    }
+}
