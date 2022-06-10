@@ -1,0 +1,68 @@
+
+ // object cannot be compared with == operator
+import java.util.* ;
+import java.io.*; 
+/****************************************************************
+
+    Following is the class structure of the LinkedListNode class:
+	
+	class LinkedListNode<T> {
+    	T data;
+    	LinkedListNode<T> next;
+
+    	public LinkedListNode(T data) {
+        	this.data = data;
+    	}
+	}
+
+*****************************************************************/
+
+public class Solution {
+
+	public static boolean isPalindrome(LinkedListNode<Integer> head) {
+	    LinkedListNode<Integer> rev = reverse(head);
+        
+//         while(rev != null){
+//             System.out.print(rev.data + " ");
+//             rev = rev.next;
+//         }
+         
+       while(rev != null)
+       {
+           if(head.data.equals(rev.data))
+           {
+               head  = head.next;
+               rev = rev.next;
+           }
+           else
+           {
+               //System.out.println(rev.data + " " + head.data);
+               return false;
+           }
+       }
+        return true;
+	}
+    
+    public static LinkedListNode<Integer> reverse(LinkedListNode<Integer> node)
+    {
+        if(node == null)
+            return null;
+            
+        LinkedListNode<Integer> head = new LinkedListNode<Integer>(node.data);
+       
+        node = node.next;
+       
+        
+        while(node != null)
+        {
+            LinkedListNode<Integer> temp = new LinkedListNode<Integer>(node.data);
+            temp.next = head;
+            head = temp; 
+            node = node.next;
+        }
+        
+        return head;
+   
+    }
+    
+}
