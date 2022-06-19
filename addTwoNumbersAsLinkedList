@@ -1,0 +1,66 @@
+import java.util.* ;
+import java.io.*; 
+/****************************************************************
+
+    Following is the class structure of the Node class:
+
+    class LinkedListNode {
+        int data;
+        LinkedListNode next;
+        
+        public LinkedListNode(int data) {
+            this.data = data;
+        }
+    }
+
+*****************************************************************/
+
+
+public class Solution {
+    static LinkedListNode addTwoNumbers(LinkedListNode head1, LinkedListNode head2) {
+        // Write your code here.
+        LinkedListNode sumlist = new LinkedListNode(0);
+        LinkedListNode temp = sumlist;
+        int rem = 0;
+        while(head1 != null && head2 != null){
+            int sum = ((head1.data + head2.data) + rem);
+            temp.next = new LinkedListNode(sum % 10);
+            rem = sum / 10;
+            temp = temp.next;
+            head1 = head1.next;
+            head2 = head2.next;
+        }
+        while(head1 != null){
+            int sum = ((head1.data) + rem) ;
+            temp.next = new LinkedListNode(sum % 10);
+            rem = sum / 10;
+            temp = temp.next;
+            head1 = head1.next;
+        }
+        while(head2 != null){
+            int sum = ((head2.data) + rem);
+            temp.next = new LinkedListNode(sum % 10);
+            rem = sum / 10;
+            temp = temp.next;
+            head2 = head2.next;
+        }
+        if(rem != 0){
+            temp.next  = new LinkedListNode(rem);
+        }
+        return sumlist.next;
+    }
+//     static LinkedListNode reverse(LinkedListNode head){
+//         LinkedListNode newHead = new LinkedListNode(1);
+//         LinkedListNode next, curr, prev;
+//         curr = head;
+        
+//         while(curr != null){
+//             next = curr.next;
+//             curr.next = prev;
+//             prev = curr;
+//             curr = next;
+//         }
+        
+//         return prev;
+//     }
+}
