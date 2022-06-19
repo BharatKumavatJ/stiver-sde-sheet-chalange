@@ -1,0 +1,37 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution 
+{
+	public static int uniqueSubstrings(String input) 
+    {
+		//write your code here
+        HashMap<Character, Integer> feq = new HashMap<>();
+        
+        int start = 0, end = 0;
+        int n = input.length();
+        int maxLen = 0;
+        while(end < n && start < n){
+            char ch = input.charAt(start);
+            if(feq.containsKey(ch)){
+                int feqOfithchar = feq.get(ch);
+                if(feqOfithchar <= 0){
+                    feq.put(ch, feq.getOrDefault(ch, 0) + 1);
+                    start++;
+                }
+                else{
+                    int len = start - end;
+                    maxLen = Math.max(len, maxLen);
+                    feq.put(input.charAt(end), feq.get(input.charAt(end)) - 1);
+                    end++;
+                }
+            }            
+            else{
+                feq.put(ch, feq.getOrDefault(ch, 0) + 1);
+                start++;
+               
+            }
+        }
+        maxLen = Math.max(start - end ,maxLen);
+        return maxLen;
+	}
+}
