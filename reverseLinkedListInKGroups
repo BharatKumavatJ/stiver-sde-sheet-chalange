@@ -1,0 +1,62 @@
+import java.util.* ;
+import java.io.*; 
+/****************************************************************
+
+    Following is the class structure of the Node class:
+
+        class Node
+        {
+        public:
+	        int data;
+	        Node *next;
+	        Node(int data)
+	        {
+		        this->data = data;
+		        this->next = NULL;
+	        }
+        };
+
+*****************************************************************/
+
+public class Solution {
+    
+	public static Node getListAfterReverseOperation(Node head, int n, int b[]) {   
+            return helper(head, b, 0);
+    }
+    public static Node helper(Node head, int[] b, int i){
+        if(i == b.length || head == null){
+            return head;
+       }
+        if(b[i] == 0){
+            return helper(head, b, i + 1);
+        }
+        
+        // is enough elements are there to be reversed
+        int ele = 0;
+        Node temp = head;
+//         while(temp != null && ele++ < b[i]){
+           
+//             temp = temp.next;
+//         }
+        Node curr, next, prev = null;
+        // ele == b[i] + 1
+       // if(){ // enough elements to be reversed therefore reverse elements 
+                curr = head;
+                while(curr!= null && b[i]-- > 0){
+                    next = curr.next;
+                    curr.next = prev;
+                    prev = curr;
+                    curr = next;    
+                }
+        
+                if(curr != null) 
+                    head.next =   helper(curr, b, i + 1);
+
+                return prev;
+        //}
+        // not enough elements return head pointer itself
+        //return head;
+        
+    }
+  
+}
