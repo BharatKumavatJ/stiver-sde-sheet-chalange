@@ -1,0 +1,70 @@
+import java.util.*;
+public class Solution {
+    public static ArrayList<Integer> subsetSum(int num[]) {
+        // Write your code here..
+//         Arrays.sort(num, Collections.reverseOrder());
+        //Arrays.sort(num, Collections.reverseOrder());
+        //heapSort(num);
+        ArrayList<Integer> al = new ArrayList<Integer>(); 
+     
+        getAns(num, num.length, al, 0);
+        Collections.sort(al);
+        return al; 
+        
+    }
+
+    public static void heapSort(int arr[]){
+        int n = arr.length;
+        for(int i = n/2 - 1; i >= 0; i--){
+            heapify(arr, i, n);
+        }
+        
+        // heapSort
+        
+        for(int i = n - 1; i >= 0; i--){
+            int temp = arr[0];
+            arr[0] = arr[i];
+            arr[i] = temp;
+            
+            heapify(arr, 0, i);
+        }
+    }
+    
+    public static void heapify(int arr[], int i, int n){
+        
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
+        
+        int minIndex = i;
+        
+        if(left < n && arr[left] > arr[minIndex]){
+            minIndex = left;    
+        }
+        if(right < n && arr[right] > arr[minIndex]){
+            minIndex = right;    
+        }
+        
+        if(i != minIndex){
+            int temp = arr[minIndex];
+            arr[minIndex] = arr[i];
+            arr[i] = temp;
+            heapify(arr, minIndex, n);
+        }
+        
+        
+    }
+    // 6 
+    // 1 2 3 n sum =   
+    public static void getAns(int nums[], int n, ArrayList<Integer> al, int sum){
+        
+        if(n == 0){
+            al.add(sum);
+            return;
+        }
+
+        getAns(nums, n - 1, al, sum);
+        getAns(nums, n - 1, al, sum + nums[n - 1]);
+       
+    }
+
+}
