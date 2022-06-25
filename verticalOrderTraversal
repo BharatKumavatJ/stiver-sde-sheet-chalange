@@ -1,0 +1,87 @@
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    class TreeNode<T> 
+    {
+       public:
+        T data;
+        TreeNode<T> left;
+        TreeNode<T> right;
+
+        TreeNode(T data) 
+        {
+            this.data = data;
+            left = null;
+            right = null;
+        }
+    };
+
+************************************************************/
+
+import java.util.*;
+
+class Pair{
+    int level;
+    TreeNode<Integer> node;
+    Pair(TreeNode<Integer> node, int level){
+        this.level = level;
+        this.node = node;
+    }
+}
+public class Solution 
+{
+    public static ArrayList<Integer> verticalOrderTraversal(TreeNode<Integer> root) 
+    {
+       ArrayList<Integer> ans = new ArrayList<>();
+        
+        if(root == null){
+            return ans;
+        }
+        
+        Queue<Pair> q = new LinkedList<>();
+        
+        HashMap<Integer,  ArrayList<Integer>> hm = new HashMap<>();
+        
+        q.add(new Pair(root, 0));
+        
+        int min = 0; int max = 0;
+        while(q.isEmpty() == false){
+            
+            Pair temp = q.poll();
+            min = Math.min(min , temp.level);
+            max = Math.max(max , temp.level);
+            
+            if(hm.containsKey(temp.level)){
+                ArrayList<Integer> al = hm.get(temp.level);
+                al.add(temp.node.data);
+                hm.put(temp.level, al);
+            }else{
+                ArrayList<Integer> al = new ArrayList<>();
+                al.add(temp.node.data);
+                hm.put(temp.level, al);
+            }
+            
+            if(temp.node.left != null){
+                q.add(new Pair(temp.node.left, temp.level - 1));
+            }
+            
+            if(temp.node.right != null){
+                q.add(new Pair(temp.node.right, temp.level + 1));
+            }
+        }
+        
+        
+        while(min <= max){
+          ArrayList<Integer> al = hm.get(min);
+            
+          for(int i = 0; i < al.size(); i++){
+              ans.add(al.get(i));
+//               System.out.println(al.get(i));
+          }
+          min++;
+        }
+        
+        return ans;
+    }
+}
