@@ -1,0 +1,74 @@
+/************************************************************
+
+	Following is the Binary Tree node structure:
+
+	class BinaryTreeNode<T> {
+	    T data;
+	    BinaryTreeNode<T> left;
+	    BinaryTreeNode<T> right;
+
+	    public BinaryTreeNode(T data) {
+	        this.data = data;
+	    }
+	}
+
+************************************************************/
+import java.util.*;
+class Pair{
+    int stat;
+    BinaryTreeNode<Integer> node;
+    
+    Pair(int stat, BinaryTreeNode<Integer> node){
+        this.stat = stat;
+        this.node = node;
+    }
+}
+public class Solution {
+    public static List<List<Integer>> getTreeTraversal(BinaryTreeNode<Integer> root) {
+        // Write your code here.
+        
+        Stack<Pair> st = new Stack();
+        
+        List<List<Integer>> ans = new ArrayList<>();
+        if(root == null){
+            return ans;
+        }
+        
+        List<Integer> pre = new ArrayList<Integer>();
+        List<Integer> post = new ArrayList<Integer>();
+        List<Integer> in = new ArrayList<Integer>();
+        
+        st.push(new Pair(1, root));
+        while(st.isEmpty() == false)
+        {
+            if(st.peek().stat == 1){
+                pre.add(st.peek().node.data);
+                st.peek().stat += 1;
+                
+               if(st.peek().node.left != null){
+                    st.push(new Pair(1, st.peek().node.left));
+                }
+                 
+             
+               
+            }
+            else if(st.peek().stat == 2){
+                 in.add(st.peek().node.data);
+                 st.peek().stat += 1;
+                
+                if(st.peek().node.right != null){
+                    st.push(new Pair(1, st.peek().node.right));
+                }
+            }
+            else{
+                post.add(st.peek().node.data);
+                st.pop();
+            }
+            
+        }
+        ans.add(in);                            
+        ans.add(pre);
+        ans.add(post);
+        return ans;
+    }
+}
