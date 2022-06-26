@@ -1,0 +1,64 @@
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    class TreeNode<T>
+    {
+       public:
+        T data;
+        TreeNode<T> left;
+        TreeNode<T> right;
+
+        TreeNode(T data)
+        {
+            this.data = data;
+            left = null;
+            right = null;
+        }
+    };
+
+************************************************************/
+
+public class Solution 
+{
+    static int ans;
+    public static int lowestCommonAncestor(TreeNode<Integer> root, int x, int y) 
+    {
+        ans = -1;
+        
+        if(root.data == x || root.data == y)
+            return root.data;
+        solve(root, x, y);
+        return ans;
+    }
+    
+    public static boolean solve(TreeNode<Integer> root, int x, int y){
+        
+        
+        if(root == null)
+                return false;
+            
+       if(root.data == x || root.data == y){
+           boolean isPresentInLeft =  solve(root.left, x, y);
+           boolean isPresentInRight  = solve(root.right, x, y);
+           
+           if(isPresentInLeft || isPresentInRight){
+               ans = root.data;
+           }
+           return true;
+       }
+        
+        
+      boolean left = solve(root.left, x, y);
+        
+      boolean right = solve(root.right, x, y);
+        
+      if(left == true && right == true){
+         if(ans == -1)
+             ans = root.data;
+      }
+      return left || right;
+    }
+    
+   
+}
