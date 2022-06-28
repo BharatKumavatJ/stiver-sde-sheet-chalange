@@ -1,0 +1,60 @@
+/************************************************************
+  
+   Following is the TreeNode class structure
+   
+   class TreeNode<T> { 
+        T data; 
+        TreeNode<T> left;
+        TreeNode<T> right;
+  
+        TreeNode(T data) { 
+            this.data = data; 
+            left = null; 
+            right = null; 
+        }
+   }
+    
+ ************************************************************/
+
+public class Solution {
+	public static TreeNode<Integer> getTreeFromPostorderAndInorder(int[] postOrder, int[] inOrder) {
+		return buildTree(postOrder, inOrder, 0, inOrder.length - 1);
+	}
+    
+    public static TreeNode<Integer> buildTree(int[] post, int[] in, int s, int e){ // s == > start , e ==> end
+        
+        if(s > e){
+            return null;
+        }
+        TreeNode<Integer> root = new TreeNode(post[post.length - 1]);
+        if(s == e){
+            return root;
+        }
+        int k = 0;
+        int i = s;
+        // find number of value in left and right subtree
+        
+        while(in[i] != post[post.length - 1]){
+            k++;
+            i++;
+        }
+        
+        int leftSubTree[] = new int[k];
+        int rightSubTree[] = new int[e - s - k];
+        int  l = 0, r = 0;
+         for(int j = 0; j < e - s; j++){
+             if(k-- > 0)
+                leftSubTree[l++] = post[j];
+             else
+                rightSubTree[r++] = post[j];
+        }
+     
+        
+        root.left = buildTree(leftSubTree, in, s, i - 1);
+        root.right = buildTree(rightSubTree, in, i + 1, e);
+        return root;
+        
+    }
+    
+    
+}
