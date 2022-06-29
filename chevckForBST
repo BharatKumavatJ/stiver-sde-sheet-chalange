@@ -1,0 +1,36 @@
+/*************************************************************
+
+    Following is the Binary Tree node structure
+
+    class BinaryTreeNode<Integer> {
+        int data;
+        BinaryTreeNode<Integer> left;
+        BinaryTreeNode<Integer> right;
+
+        public BinaryTreeNode(int data) {
+            this.data = data;
+        }
+    }
+
+ *************************************************************/
+
+public class Solution {
+    public static boolean validateBST(BinaryTreeNode<Integer> root) {
+        
+        if(root == null )
+            return true;
+            return isBst(root, Integer.MIN_VALUE,Integer.MAX_VALUE);
+    }
+    
+    public static boolean isBst(BinaryTreeNode<Integer> root, int min, int max){
+         if(root == null)
+             return true;
+        
+        boolean left =  isBst(root.left,min, root.data);
+        boolean right = isBst(root.right, root.data, max);;
+        if((root.data <= max && root.data >= min ) && left && right){
+            return true;
+        }
+         return false;
+    }
+}
