@@ -1,0 +1,51 @@
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    class TreeNode<T>
+    {
+       public:
+        T data;
+        TreeNode<T> left;
+        TreeNode<T> right;
+
+        TreeNode(T data)
+        {
+            this.data = data;
+            left = null;
+            right = null;
+        }
+    };
+
+************************************************************/
+
+public class Solution {
+
+    public static int ceil, key;
+    public  static int findCeil(TreeNode<Integer> root, int x) {
+
+        
+        ceil = Integer.MAX_VALUE;
+        key = x;
+        getCeil(root);
+        return ceil == Integer.MAX_VALUE ? -1 : ceil;
+
+    }
+    
+    public static void getCeil(TreeNode<Integer> root){
+        if(root == null)
+            return;
+        if(root.data == key){
+            ceil = key;
+            return;
+        }
+        else if(root.data < key){
+            getCeil(root.right);
+        }
+        
+        else if(root.data < ceil){
+            ceil = root.data;
+            getCeil(root.left);
+        }
+    }
+}
