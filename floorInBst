@@ -1,0 +1,49 @@
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    class TreeNode<T>
+    {
+       public:
+        T data;
+        TreeNode<T> left;
+        TreeNode<T> right;
+
+        TreeNode(T data)
+        {
+            this.data = data;
+            left = null;
+            right = null;
+        }
+    };
+
+************************************************************/
+
+public class Solution {
+
+    static int key;
+    static int floor;
+    public static int floorInBST(TreeNode<Integer> root, int X) {
+        key = X;
+        floor = -1;
+        floor(root);
+        return floor;
+    }
+    
+    public static void floor(TreeNode<Integer> root){
+        if(root == null){
+            return;
+        }
+        
+        if(root.data > floor && root.data <= key){
+            floor = root.data;
+        }
+        if(root.data > key)
+              floor(root.left);
+        if(root.data < key)
+              floor(root.right);
+        else
+            return;
+        
+    }
+}
