@@ -1,0 +1,73 @@
+import java.util.*;
+public class Solution {
+
+	public static int longestIncreasingSubsequence(int arr[]) {
+		
+       int n = arr.length;
+     
+       ArrayList<Integer> al = new ArrayList<Integer>();
+        al.add(arr[0]);
+       for(int i = 1; i < n; i++){
+           if(arr[i] > al.get(al.size() - 1)){
+               al.add(arr[i]);
+               
+           }else{
+               int lb = getLowerBound(al, arr[i]);
+               al.set(lb, arr[i]);
+           }
+           
+       }
+       
+       return al.size();
+      
+	}
+    
+    public static int  getLowerBound(ArrayList<Integer> al, int target){
+        
+        
+        int l = 0, r = al.size()-1;
+        
+        while(l<=r)
+        {
+            int mid = (l+r)/2;
+            
+            if(al.get(mid) == target)
+            {
+                return mid;
+            }
+            if(target > al.get(mid))
+            {
+                l = mid + 1;
+            }
+            else
+            {
+                r = mid -1;
+            }
+        }
+        return l;
+    }
+
+}
+
+/* n * n approach  
+      int n = arr.length;
+        int dp[] = new int[n];
+        int ans = 0;
+        for(int i = 0; i < n; i++)
+        {
+                 
+            int max = 0;
+            for(int j = i - 1; j >= 0; j--)
+            {
+                if(arr[j] < arr[i])
+                {
+                    max  = Math.max(max, dp[j]);
+                }
+            }
+            
+            dp[i] = max + 1;
+            ans = Math.max(ans, dp[i]);
+        }
+        
+        return ans;
+*/
