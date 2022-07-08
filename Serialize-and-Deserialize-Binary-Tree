@@ -1,0 +1,71 @@
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    class TreeNode<T> 
+    {
+       public:
+        T data;
+        TreeNode<T> left;
+        TreeNode<T> right;
+
+        TreeNode(T data) 
+        {
+            this.data = data;
+            left = null;
+            right = null;
+        }
+    };
+
+************************************************************/
+
+
+public class Solution 
+{
+    public static String serializeTree(TreeNode<Integer> root)
+    {
+        String ser = getString(root);
+        //System.out.println(ser);
+        return ser;
+    }
+    
+    public static String getString(TreeNode<Integer> root){
+        if(root == null) return "x";
+        
+        return Integer.toString(root.data) + ","  + getString(root.left) + "," +  getString(root.right);
+    }
+    public static int i;
+    public static TreeNode<Integer> deserializeTree(String str)
+    {
+        i = 0;
+        return getTree(str);
+    }
+    
+    public static TreeNode<Integer> getTree(String s){
+     //   System.out.println(s.charAt(i));
+        if(s.charAt(i) == 'x') { 
+            i = i + 2;
+            return null;
+        }
+            TreeNode<Integer> root = new TreeNode(getNumber(s));
+           if(i < s.length()); 
+           root.left = getTree(s);
+           if(i < s.length()) 
+           root.right = getTree(s);
+       
+        return root;
+    }
+    
+    public static int getNumber(String s){
+        int num = 0;
+        
+        while(s.charAt(i) != ',')
+        {
+            num = num * 10 + s.charAt(i) - '0';
+            i++;
+        }
+        i++;
+        return num;
+    }
+}
+
