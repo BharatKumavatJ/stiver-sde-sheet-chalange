@@ -1,0 +1,29 @@
+
+import java.util.*;
+public class Solution {
+    public static int calculateMinPatforms(int at[], int dt[], int n) {
+        // Write your code here.
+        
+        // sort arival and dipature 
+        // if arrival < dipature we need one extra plateform 
+        // else we can provide that plateform to arival train
+        
+        Arrays.sort(at);
+        Arrays.sort(dt);
+        int plateForm = 1, maxPlateForm = 1;
+        int i = 1,j = 0;
+        while(i < n){
+            if(at[i] <= dt[j]){
+                plateForm++;
+                i++;
+            }else{
+                plateForm--;
+                j++;
+            }
+            maxPlateForm = Math.max(maxPlateForm, plateForm);
+        }
+        
+        
+      return maxPlateForm;
+    }
+}
