@@ -1,0 +1,42 @@
+
+
+import java.util.*;
+ class Pair{
+     int start, end, mno; // mno = meeting number
+     
+     public Pair(int start, int end, int mno){
+         this.start = start;
+         this.end = end;
+         this.mno = mno;
+     }
+     
+ }
+public class Solution {
+    public static List<Integer> maximumMeetings(int[] start, int[] end) {        
+        // sort according to ending time
+        // reson we can define the metting which is comming can be performed in same room or not by comaparing start of upcoming and end of performored
+        int n = start.length;
+        Pair p[] = new Pair[n];
+        for(int i = 0; i < n; i++){
+           p[i] = new Pair(start[i], end[i], i + 1);
+        }
+        
+        Arrays.sort(p, new Comparator<Pair>(){
+            public int compare(Pair a, Pair b){
+                return a.end - b.end;
+            }
+        });
+       int endTime = p[0].end;
+       List<Integer> ans = new ArrayList<>();
+       ans.add(p[0].mno);
+        for(int i = 1; i < n; i++){
+               if(p[i].start > endTime){
+                   ans.add(p[i].mno);
+                   endTime = p[i].end; 
+               }
+       }
+        
+        return ans;
+        
+    }
+}
