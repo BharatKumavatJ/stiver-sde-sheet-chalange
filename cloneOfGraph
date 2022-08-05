@@ -1,0 +1,61 @@
+/***************************************************************************
+
+  Class for graph node is as follows:
+
+  class graphNode {
+      public int data;
+      public ArrayList<graphNode> neighbours;
+
+      graphNode() {
+          data = 0;
+          neighbours = new ArrayList<graphNode>();
+      }
+
+      graphNode(int val) {
+          data = val;
+          neighbours = new ArrayList<graphNode>();
+      }
+
+      graphNode(int val, ArrayList<graphNode> neighbours) {
+          data = val;
+          this.neighbours = neighbours;
+      }
+    }
+
+******************************************************************************/
+import java.util.*;
+public class Solution {
+    static class Pair {
+        graphNode original;
+        graphNode copy;
+        Pair(graphNode original, graphNode copy){
+            this.original = original;
+            this.copy = copy;
+        }
+    }
+    public static graphNode cloneGraph(graphNode node) {
+        Queue<Pair> q = new LinkedList<>();
+        // mark visited
+        HashMap<Integer, graphNode> vis = new HashMap<>();
+        graphNode dupRoot = new graphNode(node.data);
+        // adding in queue
+        q.add(new Pair(node, dupRoot));
+        vis.put(node.data, dupRoot);
+
+        while(q.isEmpty() == false){
+            Pair tempNode = q.poll();
+            for(graphNode nbr : tempNode.original.neighbours){
+                // already created or not created
+                if(vis.containsKey(nbr.data)){ // node duplicated
+                    tempNode.copy.neighbours.add(vis.get(nbr.data));
+                }else{ // still not duplicated need to create
+                    graphNode newNode = new graphNode(nbr.data);
+                    tempNode.copy.neighbours.add(newNode);
+                    vis.put(newNode.data, newNode);
+                    q.add(new Pair(nbr, newNode));
+                }
+            }
+        }
+        return dupRoot;
+    }
+}
